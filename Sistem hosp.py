@@ -1,5 +1,5 @@
 import datetime as datetime
-
+from validaciones import *
 class Bioinstrumentos:
 
     def __init__(self, medico, estado, tamaño, material):
@@ -138,7 +138,6 @@ class Sistema_hospital:
     def existenciaPaciente(self, paciente):
         if paciente in self.__registro:
             return True
-        print(f"El paciente {paciente.getNombre()} no esta registrado")
         return False
     
     def existenciaBioinstrumento(self, bioinstrumento):
@@ -156,5 +155,25 @@ class Sistema_hospital:
 
     def agregarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
-            
+            self.__registro[paciente].append(bioinstrumento)
+        else:
+            print(f"El paciente {paciente.getNombre()} no esta registrado")
 
+    def quitarBioinstrumento(self, paciente, bioinstrumento):
+        if self.existenciaPaciente(paciente):
+            self.__registro[paciente].remove(bioinstrumento)
+        else:
+            print(f"El paciente {paciente.getNombre()} no esta registrado")
+
+def main():
+    sh = Sistema_hospital()
+    print("Bienvenido al sistema hospitalario de gestion de bioisntrumentos".center(90))
+    while True:
+        print("Menu principal".center(90))
+        des = validar_entero("""\r1.Registrar paciente
+                                \r2.Modificar registro de un paciente
+                                \r:""")
+        if des == 1:
+            print("Registro de pacientes".center(90))
+            nombre = validar_alfanumerico("Ingrese el nombre el paciente: ")
+            cedula = validar_entero("Ingrese el numero de cedula del paciente: ")
