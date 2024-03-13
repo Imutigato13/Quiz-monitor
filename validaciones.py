@@ -1,6 +1,4 @@
 import re
-import json
-from datetime import datetime
 
 def validar_entero(msj):
     '''Valida que el valor ingresado corresponda a un numero entero y retorne dicho numero entero'''

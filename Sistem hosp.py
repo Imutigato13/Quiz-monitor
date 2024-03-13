@@ -2,13 +2,15 @@ import datetime as datetime
 from validaciones import *
 class Bioinstrumentos:
 
-    def __init__(self, medico, estado, tamaño, material):
+    def __init__(self, medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento):
         self.__medico = medico
         self.__estado = estado
         self.__tamaño = tamaño
         self.__material = material
-        self.__fecha = datetime.datetime.now().strftime("%d/%m/%Y")
-    
+        self.__fecha_implantacion = datetime.datetime.now().strftime("%d/%m/%Y")
+        self.__fecha_revision = fecha_revision
+        self.__fecha_mantenimiento = fecha_mantenimiento
+
     #Get's definidos 
     def getMedico(self):
         return self.__medico
@@ -18,8 +20,12 @@ class Bioinstrumentos:
         return self.__tamaño
     def getMaterial(self):
         return self.__material
-    def getFecha(self):
-        return self.__fecha
+    def getFecha_implante(self):
+        return self.__fecha_implantacion
+    def getFecha_revision(self):
+        return self.__fecha_revision
+    def getFecha_mantenimiento(self):
+        return self.__fecha_mantenimiento
     
     #Set's definidos
     def setMedico(self, med):
@@ -30,11 +36,15 @@ class Bioinstrumentos:
         self.__tamaño = tam
     def setMaterial(self, mat):
         self.__material = mat
+    def setFecha_revision(self, fr):
+        self.__fecha_revision = fr
+    def setFecha_mantenimiento(self, fm):
+        self.__fecha_revision = fm
 
 class Protesis_de_cadera(Bioinstrumentos):
 
-    def __init__(self, medico, estado, tamaño, material, tipo_fijacion):
-        super().__init__(medico, estado, tamaño, material)
+    def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
+        super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
     
     def getTipo_fijacion(self):
@@ -45,8 +55,8 @@ class Protesis_de_cadera(Bioinstrumentos):
 
 class Marcapasos_cardiacos(Bioinstrumentos):
 
-    def __init__(self, medico, estado, n_electrodos, alam_inal, frecuencia_estimulacion):
-        super().__init__(medico, estado)
+    def __init__(self, medico, estado, n_electrodos, alam_inal, frecuencia_estimulacion, fecha_revision, fecha_mantenimiento):
+        super().__init__(medico, estado, fecha_revision, fecha_mantenimiento)
         self.__n_electrodos = n_electrodos
         self.__alam_inal = alam_inal
         self.__frecuencia_estimulacion = frecuencia_estimulacion
@@ -67,8 +77,8 @@ class Marcapasos_cardiacos(Bioinstrumentos):
 
 class Stents_coronarios(Bioinstrumentos):
 
-    def __init__(self, medico, estado, longuitud, diametro, material):
-        super().__init__(medico, estado, material)
+    def __init__(self, medico, estado, longuitud, diametro, material, fecha_revision, fecha_mantenimiento):
+        super().__init__(medico, estado, material, fecha_revision, fecha_mantenimiento)
         self.__longuitud = longuitud
         self.__diametro = diametro
     
@@ -84,8 +94,8 @@ class Stents_coronarios(Bioinstrumentos):
 
 class Implantes_dentales(Bioinstrumentos):
 
-    def __init__(self, medico, estado, forma, material, sistema_fijacion):
-        super().__init__(medico, estado, material)
+    def __init__(self, medico, estado, forma, material, sistema_fijacion, fecha_revision, fecha_mantenimiento):
+        super().__init__(medico, estado, material, fecha_revision, fecha_mantenimiento)
         self.__forma = forma
         self.__sistema_fijacion = sistema_fijacion
 
@@ -101,8 +111,8 @@ class Implantes_dentales(Bioinstrumentos):
 
 class Protesis_rodilla(Bioinstrumentos):
 
-    def __init__(self, medico, estado, tamaño, material, tipo_fijacion):
-        super().__init__(medico, estado, tamaño, material)
+    def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
+        super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
     
     def getTipo_fijacion(self):
@@ -147,33 +157,68 @@ class Sistema_hospital:
         print(f"El bioinstrumento {bioinstrumento} no esta registrado")
         return False
 
-    def agregarPaciente(self, paciente):
+    def registrarPaciente(self, paciente):
         if self.existenciaPaciente(paciente):
             print(f"El paciente {paciente.getNombre()} esta registrado")
         else:
             self.__registro[paciente] = ()
 
-    def agregarBioinstrumento(self, paciente, bioinstrumento):
+    def registrarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
             self.__registro[paciente].append(bioinstrumento)
         else:
             print(f"El paciente {paciente.getNombre()} no esta registrado")
 
-    def quitarBioinstrumento(self, paciente, bioinstrumento):
+    def retirarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
             self.__registro[paciente].remove(bioinstrumento)
         else:
             print(f"El paciente {paciente.getNombre()} no esta registrado")
 
 def main():
+
     sh = Sistema_hospital()
     print("Bienvenido al sistema hospitalario de gestion de bioisntrumentos".center(90))
     while True:
+
         print("Menu principal".center(90))
-        des = validar_entero("""\r1.Registrar paciente
+        men1 = validar_entero("""\r1.Registrar paciente
                                 \r2.Modificar registro de un paciente
+                                \r3.Revisar estado de bioinstrumento
+                                \r4.Finalizar programa
                                 \r:""")
-        if des == 1:
+        
+        if men1 == 1:
+
             print("Registro de pacientes".center(90))
-            nombre = validar_alfanumerico("Ingrese el nombre el paciente: ")
+            nombre = validar_alfanumerico("Ingrese el nombre el paciente: ").lower()
             cedula = validar_entero("Ingrese el numero de cedula del paciente: ")
+            paciente = Paciente(nombre,cedula)
+            sh.registrarPaciente(paciente)
+            print(f"El paciente {paciente.getNombre()} se registro con exito")
+        
+        elif men1 == 2:
+
+            nombre = validar_alfanumerico("Ingrese el nombre el paciente: ").lower()
+            cedula = validar_entero("Ingrese el numero de cedula del paciente: ")
+            registro = sh.getRegistro()
+
+            for paciente in registro.keys():
+                if paciente.getNombre() == nombre and paciente.getCedula() == cedula:
+                    print(f"Que decea modificar de {paciente.getNombre()}?".center(90))
+
+                    men2 = validar_entero("""\r1.Registrar bioinstrumento
+                                            \r2.Retirar bioinstrumento
+                                            \r3.Modificar bioinstrumento
+                                            \r4.Registro completo de bioinstrumentos
+                                            \r5.Salir
+                                            \r:""")
+                    
+                    if men2 == 1:
+
+                        men3 = validar_entero(""" """)
+        
+        elif men1 == 4:
+
+            print("Vuelva pronto")
+            break
