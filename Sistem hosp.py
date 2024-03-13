@@ -534,6 +534,15 @@ def main():
                     else:
                         print("Elija una de las opciones indicadas")
 
+        elif menu == 3:
+            print("--Revision de estado de bioinstrumentos--".center(90))
+            n_registro = validar_entero("Introduzca el numero de registro del bioisntrumento: ")
+            for paciente in registro.keys():
+                for bioinstrumento in registro[paciente]:
+                    if n_registro == bioinstrumento.getN_registro():
+                        print(f"""El bioisntrumento que consulta tiene el siguiente estado: {bioinstrumento.getEstado()}
+                                \rSe le tiene asignada la siguiente fecha de mantenimiento: {bioinstrumento.getFecha_mantenimiento()}""")
+
 
         elif menu == 4:
 
