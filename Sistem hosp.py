@@ -180,7 +180,7 @@ class Sistema_hospital:
         if self.existenciaPaciente(paciente):
             print(f"El paciente {paciente.getNombre()} esta registrado")
         else:
-            self.__registro[paciente] = ()
+            self.__registro[paciente] = []
 
     def registrarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
@@ -224,7 +224,7 @@ def main():
 
             for paciente in registro.keys():
                 if paciente.getNombre() == nombre and paciente.getCedula() == cedula:
-                    print(f"Que decea modificar de {paciente.getNombre()}?".center(90))
+                    print(f"Que desea modificar de {paciente.getNombre()}?".center(90))
 
                     vbio = validar_entero("""\r1.Registrar bioinstrumento
                                              \r2.Retirar bioinstrumento
@@ -256,6 +256,7 @@ def main():
                             protesis_cadera = Protesis_de_cadera(medico,condiciones,tamaño,material,tipo_fijacion,fecha_revision,fecha_mantenimiento)
                             sh.registrarBioinstrumento(paciente, protesis_cadera)
                             print(f"El bioinstrumento con numero de registro {protesis_cadera.getN_registro()} se registro correctamente")
+                            break
 
                         elif rbio == 2:
 
@@ -270,6 +271,7 @@ def main():
                             marcapasos = Marcapasos_cardiacos(medico,condiciones,n_electrodos,alam_inal,frecuencia_estimulacion,fecha_revision,fecha_mantenimiento)
                             sh.registrarBioinstrumento(paciente, marcapasos)
                             print(f"El bioinstrumento con numero de registro {marcapasos.getN_registro()} se registro correctamente")
+                            break
                             
                         elif rbio == 3:
 
@@ -284,6 +286,7 @@ def main():
                             stent_coronario = Stents_coronarios(medico,condiciones,longuitud,diametro,material,fecha_revision,fecha_mantenimiento)
                             sh.registrarBioinstrumento(paciente,stent_coronario)
                             print(f"El bioinstrumento con numero de registro {stent_coronario.getN_registro()} se registro correctamente")
+                            break
 
                         elif rbio == 4:
                             
@@ -298,6 +301,7 @@ def main():
                             implante_dental = Implantes_dentales(medico,condiciones,forma,material,sistema_fijacion,fecha_revision,fecha_mantenimiento)
                             sh.registrarBioinstrumento(paciente,implante_dental)
                             print(f"El bioinstrumento con numero de registro {implante_dental.getN_registro()} se registro correctamente")
+                            break
 
                         elif rbio == 5:
 
@@ -311,13 +315,17 @@ def main():
                             protesis_rodilla = Protesis_rodilla(medico,condiciones,tamaño,material,fecha_revision,fecha_mantenimiento)
                             sh.registrarBioinstrumento(paciente,protesis_rodilla)
                             print(f"El bioinstrumento con numero de registro {protesis_rodilla.getN_registro()} se registro correctamente")
+                            break
 
                     elif vbio == 2:
                         print("--Eliminar bioinstrumento--".center(90))
                         n_registro = validar_entero("Ingrese el numero de registro de el bioinstrumento: ")
                         for bioinstrumento in registro[paciente]:
                             if n_registro == bioinstrumento.getN_registro():
-                                sh.retirarBioinstrumentos(paciente, bioinstrumento)
+                                sh.retirarBioinstrumento(paciente, bioinstrumento)
+                                print("El bioinstrumento se retiro con exito")
+                                break
+                        break
                               
                     elif vbio == 3:
                         print("--Modificar bioinstrumento--")
@@ -332,17 +340,17 @@ def main():
                                                         \r3. Material
                                                         \r4. Tipo de Fijación
                                                         \r5. Fecha mantenimiento 
-                                                        :   """)
+                                                        \r:   """)
                                     fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
                                     bioinstrumento.setFecha_revision(fecha_revision)
                                     if mod == 1:
-                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
+                                        nuevo_estado = validar_alfanumerico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
                                         bioinstrumento.setEstado(nuevo_estado)
                                     elif mod == 2:
                                         nuevo_tamaño = validar_alfanumerico("Introduzca el nuevo tamaño:  ")
                                         bioinstrumento.setTamaño(nuevo_tamaño)
                                     elif mod == 3:
-                                        nuevo_material = validar_alfabetico("Introduzca el nuevo material:  ")
+                                        nuevo_material = validar_alfanumerico("Introduzca el nuevo material:  ")
                                         bioinstrumento.setMaterial(nuevo_material)
                                     elif mod == 4:
                                         nuevo_tipo_fijacion = validar_alfanumerico("Introduzca el nuevo tipo de fijación:  ")
@@ -358,17 +366,17 @@ def main():
                                                         \r3. Alambrico/Inalambrico
                                                         \r4. Frecuencia estimulacion
                                                         \r5. Fecha mantenimiento 
-                                                        :   """)
+                                                        \r:   """)
                                     fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
                                     bioinstrumento.setFecha_revision(fecha_revision)
                                     if mod == 1:
-                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
+                                        nuevo_estado = validar_alfanumerico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
                                         bioinstrumento.setEstado(nuevo_estado)
                                     elif mod == 2:
                                         nuevo_N_electrodos = validar_entero("Introduzca el numero numero de electrodos:  ")
                                         bioinstrumento.setN_electrodos(nuevo_N_electrodos)
                                     elif mod == 3:
-                                        nuevo_alam_inal = validar_alfabetico("Introduzca si es Alambrico o Inalambrico:  ")
+                                        nuevo_alam_inal = validar_alfanumerico("Introduzca si es Alambrico o Inalambrico:  ")
                                         bioinstrumento.setAlam_inal(nuevo_alam_inal)
                                     elif mod == 4:
                                         nuevo_frecuencia_estimulación = validar_entero("Introduzca el nuevo tiempo de estimulación en segundos:  ")
@@ -384,11 +392,11 @@ def main():
                                                         \r3. Diametro
                                                         \r4. Material
                                                         \r5. Fecha mantenimiento 
-                                                        :   """)
+                                                        \r:   """)
                                     fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
                                     bioinstrumento.setFecha_revision(fecha_revision)
                                     if mod == 1:
-                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
+                                        nuevo_estado = validar_alfanumerico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
                                         bioinstrumento.setEstado(nuevo_estado)
                                     elif mod == 2:
                                         nueva_longitud = validar_entero("Introduzca la nueva longitud:  ")
@@ -397,7 +405,7 @@ def main():
                                         nuevo_diametro = validar_entero("Introduzca el nuevo diametro:  ")
                                         bioinstrumento.setDiametro(nuevo_diametro)
                                     elif mod == 4:
-                                        nuevo_material = validar_alfabetico("Introduzca el nuevo material:  ")
+                                        nuevo_material = validar_alfanumerico("Introduzca el nuevo material:  ")
                                         bioinstrumento.setMaterial(nuevo_material)
                                     elif mod == 5:
                                         nueva_fecha_mantenimiento = datetime.datetime.strptime(input("Ingrese la nueva fecha de mantenimiento en formato DD/MM/YY: "), '%d/%m/%Y')
@@ -410,20 +418,20 @@ def main():
                                                         \r3. Material
                                                         \r4. Sistema de Fijación
                                                         \r5. Fecha mantenimiento 
-                                                        :   """)
+                                                        \r:   """)
                                     fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
                                     bioinstrumento.setFecha_revision(fecha_revision)
                                     if mod == 1:
-                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
+                                        nuevo_estado = validar_alfanumerico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
                                         bioinstrumento.setEstado(nuevo_estado)
                                     elif mod == 2:
-                                        nueva_forma = validar_alfabetico("Introduzca la nueva forma:  ")
+                                        nueva_forma = validar_alfanumerico("Introduzca la nueva forma:  ")
                                         bioinstrumento.setForma(nueva_forma)
                                     elif mod == 3:
-                                        nuevo_material = validar_alfabetico("Introduzca el nuevo material:  ")
+                                        nuevo_material = validar_alfanumerico("Introduzca el nuevo material:  ")
                                         bioinstrumento.setMaterial(nuevo_material)
                                     elif mod == 4:
-                                        nuevo_sistema_fijacion = validar_alfabetico("Introduzca el nuevo sistema de fijación:  ")
+                                        nuevo_sistema_fijacion = validar_alfanumerico("Introduzca el nuevo sistema de fijación:  ")
                                         bioinstrumento.setMaterial(nuevo_sistema_fijacion)
                                     elif mod == 5:
                                         nueva_fecha_mantenimiento = datetime.datetime.strptime(input("Ingrese la nueva fecha de mantenimiento en formato DD/MM/YY: "), '%d/%m/%Y')
@@ -436,17 +444,17 @@ def main():
                                                         \r3. Material
                                                         \r4. Tipo de Fijación
                                                         \r5. Fecha mantenimiento 
-                                                        :   """)
+                                                        \r:   """)
                                     fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
                                     bioinstrumento.setFecha_revision(fecha_revision)
                                     if mod == 1:
-                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
+                                        nuevo_estado = validar_alfanumerico("Introduzca el nuevo estado del marcapasos cardiaco:  ")
                                         bioinstrumento.setEstado(nuevo_estado)
                                     elif mod == 2:
                                         nuevo_tamaño = validar_alfanumerico("Introduzca el nuevo tamaño:  ")
                                         bioinstrumento.setTamaño(nuevo_tamaño)
                                     elif mod == 3:
-                                        nuevo_material = validar_alfabetico("Introduzca el nuevo material:  ")
+                                        nuevo_material = validar_alfanumerico("Introduzca el nuevo material:  ")
                                         bioinstrumento.setMaterial(nuevo_material)
                                     elif mod == 4:
                                         nuevo_tipo_fijacion = validar_alfanumerico("Introduzca el nuevo tipo de fijación:  ")
@@ -454,7 +462,8 @@ def main():
                                     elif mod == 5:
                                         nueva_fecha_mantenimiento = datetime.datetime.strptime(input("Ingrese la nueva fecha de mantenimiento en formato DD/MM/YY: "), '%d/%m/%Y')
                                         bioinstrumento.setFecha_mantenimiento(nueva_fecha_mantenimiento)
-    
+                        break
+
                     elif vbio == 4:
                         print("Registro completo de bioinstrumentos".center(90))
                         for bioinstrumento in registro[paciente]:
@@ -518,13 +527,16 @@ def main():
                                          \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
 
-
                     elif vbio == 5:
                         print("Salir")
                         break
                     else:
                         print("Elija una de las opciones indicadas")
+
         elif menu == 4:
 
             print("Vuelva pronto")
             break
+
+if __name__ == "__main__":
+  main()
