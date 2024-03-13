@@ -200,7 +200,7 @@ def main():
     print("Bienvenido al sistema hospitalario de gestion de bioisntrumentos".center(90))
     while True:
 
-        print("Menu principal".center(90))
+        print("--Menu principal--".center(90))
         menu = validar_entero("""\r1.Registrar paciente
                                 \r2.Modificar registro de un paciente
                                 \r3.Revisar estado de bioinstrumento
@@ -209,7 +209,7 @@ def main():
         
         if menu == 1:
 
-            print("Registro de pacientes".center(90))
+            print("--Registro de pacientes--".center(90))
             nombre = validar_alfanumerico("Ingrese el nombre el paciente: ").lower()
             cedula = validar_entero("Ingrese el numero de cedula del paciente: ")
             paciente = Paciente(nombre,cedula)
@@ -224,7 +224,7 @@ def main():
 
             for paciente in registro.keys():
                 if paciente.getNombre() == nombre and paciente.getCedula() == cedula:
-                    print(f"Que desea modificar de {paciente.getNombre()}?".center(90))
+                    print(f"--¿Que desea modificar de {paciente.getNombre()}?--".center(90))
 
                     vbio = validar_entero("""\r1.Registrar bioinstrumento
                                              \r2.Retirar bioinstrumento
@@ -465,10 +465,11 @@ def main():
                         break
 
                     elif vbio == 4:
-                        print("Registro completo de bioinstrumentos".center(90))
+                        print("--Registro completo de bioinstrumentos--".center(90))
                         for bioinstrumento in registro[paciente]:
-                            if bioinstrumento.getTipo_bioinstrumento == "protesis_cadera":
-                                print("Protesis de cadera")
+                            tipo_bio = bioinstrumento.getTipo_bioinstrumento()
+                            if tipo_bio == "protesis_cadera":
+                                print("Protesis de cadera".center(50))
                                 print(f"""Medico: {bioinstrumento.getMedico()}
                                          \rEstado: {bioinstrumento.getEstado()}
                                          \rTamaño (En cm): {bioinstrumento.getTamaño()}
@@ -479,8 +480,8 @@ def main():
                                          \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
                             
-                            elif bioinstrumento.getTipo_bioinstrumento == "marcapasos_cardiaco":
-                                print("Marcapasos cardiaco")
+                            elif tipo_bio == "marcapasos_cardiaco":
+                                print("Marcapasos cardiaco".center(50))
                                 print(f"""Medico: {bioinstrumento.getMedico()}
                                          \rEstado: {bioinstrumento.getEstado()}
                                          \rNúmero de electrodos: {bioinstrumento.getN_electrodos()}
@@ -491,8 +492,8 @@ def main():
                                          \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
 
-                            elif bioinstrumento.getTipo_bioinstrumento == "stents_coronarios":
-                                print("Protesis de cadera")
+                            elif tipo_bio == "stents_coronarios":
+                                print("Protesis de cadera".center(50))
                                 print(f"""Medico: {bioinstrumento.getMedico()}
                                         \rEstado: {bioinstrumento.getEstado()}
                                         \rLongitud (En cm): {bioinstrumento.getLongitud()}
@@ -503,8 +504,8 @@ def main():
                                         \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
                             
-                            elif bioinstrumento.getTipo_bioinstrumento == "implantes_dentales":
-                                print("Marcapasos cardiaco")
+                            elif tipo_bio == "implantes_dentales":
+                                print("Marcapasos cardiaco".center(50))
                                 print(f"""Medico: {bioinstrumento.getMedico()}
                                          \rEstado: {bioinstrumento.getEstado()}
                                          \rForma del bioinstrumento: {bioinstrumento.getForma()}
@@ -515,8 +516,8 @@ def main():
                                          \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
                             
-                            elif bioinstrumento.getTipo_bioinstrumento == "protesis_rodilla":
-                                print("Marcapasos cardiaco")
+                            elif tipo_bio == "protesis_rodilla":
+                                print("Marcapasos cardiaco".center(50))
                                 print(f"""Medico: {bioinstrumento.getMedico()}
                                          \rEstado: {bioinstrumento.getEstado()}
                                          \rTamaño: {bioinstrumento.getTamaño()}
@@ -528,10 +529,11 @@ def main():
                                 continue
 
                     elif vbio == 5:
-                        print("Salir")
+                        print("Volviendo al menu principal")
                         break
                     else:
                         print("Elija una de las opciones indicadas")
+
 
         elif menu == 4:
 
