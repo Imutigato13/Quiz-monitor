@@ -1,5 +1,6 @@
 import datetime as datetime
 from validaciones import *
+import random
 class Bioinstrumentos:
 
     def __init__(self, medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento):
@@ -10,6 +11,7 @@ class Bioinstrumentos:
         self.__fecha_implantacion = datetime.datetime.now().strftime("%d/%m/%Y")
         self.__fecha_revision = fecha_revision
         self.__fecha_mantenimiento = fecha_mantenimiento
+        self.__n_registro = random.randint(1,10000)
 
     #Get's definidos 
     def getMedico(self):
@@ -26,6 +28,8 @@ class Bioinstrumentos:
         return self.__fecha_revision
     def getFecha_mantenimiento(self):
         return self.__fecha_mantenimiento
+    def getN_registro(self):
+        return self.__n_registro
     
     #Set's definidos
     def setMedico(self, med):
@@ -46,9 +50,12 @@ class Protesis_de_cadera(Bioinstrumentos):
     def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
+        self.__tipo_bioinstrumento = "protesis_cadera"
     
     def getTipo_fijacion(self):
         return self.__tipo_fijacion
+    def getTipo_bioinstrumento(self):
+        return self.__tipo_bioinstrumento
     
     def setTipo_fijacion(self, tf):
         self.__tipo_fijacion = tf
@@ -60,6 +67,7 @@ class Marcapasos_cardiacos(Bioinstrumentos):
         self.__n_electrodos = n_electrodos
         self.__alam_inal = alam_inal
         self.__frecuencia_estimulacion = frecuencia_estimulacion
+        self.__tipo_bioinstrumento = "marcapasos_cardiaco"
     
     def getN_electrodos(self):
         return self.__n_electrodos
@@ -67,6 +75,8 @@ class Marcapasos_cardiacos(Bioinstrumentos):
         return self.__alam_inal
     def getFrecuencia_estimulacion(self):
         return self.__frecuencia_estimulacion
+    def getTipo_bioinstrumento(self):
+        return self.__tipo_bioinstrumento
     
     def setN_electrodos(self, ne):
         self.__n_electrodos = ne
@@ -81,11 +91,14 @@ class Stents_coronarios(Bioinstrumentos):
         super().__init__(medico, estado, material, fecha_revision, fecha_mantenimiento)
         self.__longuitud = longuitud
         self.__diametro = diametro
+        self.__tipo_bioinstrumento = "stents_coronarios"
     
     def getLonguitud(self):
         return self.__longuitud
     def getDiametro(self):
         return self.__diametro
+    def getTipo_bioinstrumento(self):
+        return self.__tipo_bioinstrumento
     
     def setLonguitud(self,l):
         self.__longuitud = l
@@ -98,11 +111,14 @@ class Implantes_dentales(Bioinstrumentos):
         super().__init__(medico, estado, material, fecha_revision, fecha_mantenimiento)
         self.__forma = forma
         self.__sistema_fijacion = sistema_fijacion
-
+        self.__tipo_bioinstrumento = "implantes_dentales"
+        
     def getForma(self):
         return self.__forma
     def getSistema_fijacion(self):
         return self.__sistema_fijacion
+    def getTipo_bioinstrumento(self):
+        return self.__tipo_bioinstrumento
     
     def setForma(self, f):
         self.__forma = f
@@ -114,9 +130,12 @@ class Protesis_rodilla(Bioinstrumentos):
     def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
+        self.__tipo_bioinstrumento = "protesis_rodilla"
     
     def getTipo_fijacion(self):
         return self.__tipo_fijacion
+    def getTipo_bioinstrumento(self):
+        return self.__tipo_bioinstrumento
     
     def setTipo_fijacion(self, tf):
         self.__tipo_fijacion = tf
@@ -208,16 +227,85 @@ def main():
                     print(f"Que decea modificar de {paciente.getNombre()}?".center(90))
 
                     men2 = validar_entero("""\r1.Registrar bioinstrumento
-                                            \r2.Retirar bioinstrumento
-                                            \r3.Modificar bioinstrumento
-                                            \r4.Registro completo de bioinstrumentos
-                                            \r5.Salir
-                                            \r:""")
+                                             \r2.Retirar bioinstrumento
+                                             \r3.Modificar bioinstrumento
+                                             \r4.Registro completo de bioinstrumentos
+                                             \r5.Salir
+                                             \r:""")
                     
                     if men2 == 1:
 
-                        men3 = validar_entero(""" """)
-        
+                        print("--Seleccione el bioinstrumento a registrar--".center(90))
+                        men3 = validar_entero("""\r1.Protesis de cadera
+                                                 \r2.Marcapasos cardiaco
+                                                 \r3.Stents coronario
+                                                 \r4.Implante dental
+                                                 \r5.Protesis de rodilla
+                                                 \r: """)
+                        
+                        if men3 == 1:
+                            
+                            medico = validar_alfanumerico("Ingrese el medico que implanto el bioinstrumento: ")
+                            condiciones = validar_alfanumerico("Ingrese el estado del bioinstrumento: ")
+                            tamaño = validar_entero("Indique el tamaño del dispositivo en cm: ")
+                            tipo_fijacion = validar_alfanumerico("¿Cual es el tipo de fijacion que tiene?: ")
+                            material = validar_alfabetico("Ingrese el material del bioinstrumento")
+
+                        elif men3 == 2:
+
+                            medico = validar_alfanumerico("Ingrese el medico que implanto el bioinstrumento: ")
+                            condiciones = validar_alfanumerico("Ingrese el estado del bioinstrumento: ")
+                            n_electrodos = validar_entero("Ingrese la cantidad de electrodos que se tiene: ")
+                            alam_inal = validar_alfanumerico("Ingrese si el marcapasos es alambrico o inalambrico: ")
+                            frecuencia_estimulacion = validar_entero("Ingrese el tiempo de estimulacion en segundos: ")
+                            fecha_revision = datetime.datetime.now().strftime("%d/%m/%Y")
+                            fecha_mantenimiento = datetime.datetime.strptime(input("Ingrese la fecha de mantenimiento en formato DD/MM/YY: "), '%d/%m/%Y')
+
+                            marcapasos = Marcapasos_cardiacos(medico,condiciones,n_electrodos,alam_inal,frecuencia_estimulacion,fecha_revision,fecha_mantenimiento)
+                            sh.registrarBioinstrumento(paciente, marcapasos)
+                            print(f"El bioinstrumento con numero de registro {marcapasos.getN_registro()} se registro correctamente")
+                            
+                        elif men3 == 2:
+                            pass
+                    elif men2 == 2:
+                        print("--Eliminar bioinstrumento--".center(90))
+                        n_registro = validar_entero("Ingrese el numero de registro de el bioinstrumento: ")
+                        for bioinstrumento in registro[paciente]:
+                            if n_registro == bioinstrumento.getN_registro():
+                                sh.retirarBioinstrumentos(paciente, bioinstrumento)
+                              
+                    elif men2 == 3:
+                        print("--Modificar bioinstrumento--")
+                        n_registro = validar_entero("Ingrese el numero de registro de el bioinstrumento: ")
+                        for bioinstrumento in registro[paciente]:
+                            if n_registro == bioinstrumento.getN_registro():
+                                if bioinstrumento.getTipo_bioinstrumento() == "marcapasos_cardiaco":
+
+                                    mod = validar_entero("""--Modificacion--
+                                                        \r1. Estado
+                                                        \r2. # Electrodos
+                                                        \r3. Alambrico/Inalambrico
+                                                        \r4. Frecuencia estimulacion
+                                                        \r5. Tipo de fijacion
+                                                        \r6. Fecha mantenimiento 
+                                                        :   """)
+                                    if mod == 2:
+                                        nuevo_estado = validar_alfabetico("Introduzca el nuevo estado del marcapasos cardiaco: ")
+                                        bioinstrumento.setEstado(nuevo_estado)
+                                    elif mod == 2:
+                                        nuevo_N_electrodos = validar_entero("Introduzca el numero numero de electrodos")
+                                        bioinstrumento.setN_electrodos(nuevo_N_electrodos)
+                                    
+                                        
+                            
+                    elif men2 == 4:
+                        print("Registro completo de bioinstrumentos")
+                        print("")
+                    elif men2 == 5:
+                        print("Salir")
+                        break
+                    else:
+                        print("Elija una de las opciones indicadas")
         elif men1 == 4:
 
             print("Vuelva pronto")
