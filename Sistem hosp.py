@@ -5,7 +5,7 @@ import random
 #Clase padre de los bioisntrumentos la cual hereda las caracteristicas similares para cada uno de los mismos.
 class Bioinstrumentos:
 
-    #Esta funcion es el iniciador de la clase, define las caracteristicas del objeto cuando se llama la clase 
+    #Esta funcion es el iniciador de la clase, define las caracteristicas del objeto cuando se llama la clase.
     def __init__(self, medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento):
         self.__medico = medico
         self.__estado = estado
@@ -16,7 +16,7 @@ class Bioinstrumentos:
         self.__fecha_mantenimiento = fecha_mantenimiento
         self.__n_registro = random.randint(1,10000)
 
-    #Estas funciones nos sirven para tomar y dar los datos de la clase Bioinstrumentos
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Bioinstrumentos.
     def getMedico(self):
         return self.__medico
     def getEstado(self):
@@ -34,7 +34,7 @@ class Bioinstrumentos:
     def getN_registro(self):
         return self.__n_registro
     
-    #Estas funciones nos sirven para modificar los datos de la clase Bioinstrumentos
+    #Estas funciones nos sirven para modificar los datos de la clase Bioinstrumentos.
     def setMedico(self, med):
         self.__medico = med
     def setEstado(self, est):
@@ -48,23 +48,29 @@ class Bioinstrumentos:
     def setFecha_mantenimiento(self, fm):
         self.__fecha_revision = fm
 
+#Clase hija de la clase Bioinstrumentos que agrega tipo de fijación y tipo de Bioinstrumento.
 class Protesis_de_cadera(Bioinstrumentos):
-
+    
+    #Esta función es el iniciador de la clase Protesis de cadera
     def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
         self.__tipo_bioinstrumento = "protesis_cadera"
     
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Protesis de cadera.
     def getTipo_fijacion(self):
         return self.__tipo_fijacion
     def getTipo_bioinstrumento(self):
         return self.__tipo_bioinstrumento
     
+    #Estas funciones nos sirven para modificar los datos de la clase Protesis de cadera.
     def setTipo_fijacion(self, tf):
         self.__tipo_fijacion = tf
 
+#Clase hija de la clase Bioinstrumentos que agrega número de electrodos, alambrico o inalambrico, frecuencia de estimulación y el tipo de Bioinstrumento.
 class Marcapasos_cardiacos(Bioinstrumentos):
 
+    #Esta función es el iniciador de la clase Marcapasos cardiacos.
     def __init__(self, medico, estado, n_electrodos, alam_inal, frecuencia_estimulacion, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, None, None, fecha_revision, fecha_mantenimiento)
         self.__n_electrodos = n_electrodos
@@ -72,6 +78,7 @@ class Marcapasos_cardiacos(Bioinstrumentos):
         self.__frecuencia_estimulacion = frecuencia_estimulacion
         self.__tipo_bioinstrumento = "marcapasos_cardiaco"
     
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Marcapasos cardiacos.
     def getN_electrodos(self):
         return self.__n_electrodos
     def getAlam_inal(self):
@@ -81,6 +88,7 @@ class Marcapasos_cardiacos(Bioinstrumentos):
     def getTipo_bioinstrumento(self):
         return self.__tipo_bioinstrumento
     
+    #Estas funciones nos sirven para modificar los datos de la clase Marcapasos cardiacos.
     def setN_electrodos(self, ne):
         self.__n_electrodos = ne
     def setAlam_inal(self, ai):
@@ -88,14 +96,17 @@ class Marcapasos_cardiacos(Bioinstrumentos):
     def setFrecuencia_estimulacion(self, fe):
         self.__frecuencia_estimulacion = fe
 
+#Clase hija de la clase Bioinstrumentos que agrega longitud, diametro y el tipo de Bioinstrumento.
 class Stents_coronarios(Bioinstrumentos):
 
+    #Esta función es el iniciador de la clase Stents coronarios
     def __init__(self, medico, estado, longitud, diametro, material, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, None, material, fecha_revision, fecha_mantenimiento)
         self.__longitud = longitud
         self.__diametro = diametro
         self.__tipo_bioinstrumento = "stents_coronarios"
     
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Stents coronarios
     def getLongitud(self):
         return self.__longitud
     def getDiametro(self):
@@ -103,11 +114,13 @@ class Stents_coronarios(Bioinstrumentos):
     def getTipo_bioinstrumento(self):
         return self.__tipo_bioinstrumento
     
+    #Estas funciones nos sirven para modificar los datos de la clase Stents coronarios
     def setLongitud(self,l):
         self.__longitud = l
     def setDiametro(self,d):
         self.__diametro = d
 
+#Clase hija de la clase Bioinstrumentos que agrega forma, sistema de fijacion y el tipo de Bioinstrumento.
 class Implantes_dentales(Bioinstrumentos):
 
     def __init__(self, medico, estado, forma, material, sistema_fijacion, fecha_revision, fecha_mantenimiento):
@@ -115,7 +128,8 @@ class Implantes_dentales(Bioinstrumentos):
         self.__forma = forma
         self.__sistema_fijacion = sistema_fijacion
         self.__tipo_bioinstrumento = "implantes_dentales"
-        
+    
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Implantes dentales        
     def getForma(self):
         return self.__forma
     def getSistema_fijacion(self):
@@ -123,23 +137,28 @@ class Implantes_dentales(Bioinstrumentos):
     def getTipo_bioinstrumento(self):
         return self.__tipo_bioinstrumento
     
+    #Estas funciones nos sirven para modificar los datos de la clase Implantes dentales
     def setForma(self, f):
         self.__forma = f
     def setSistema_fijacion(self, sf):
         self.__sistema_fijacion = sf
 
+#Clase hija de la clase Bioinstrumentos que agrega tipo de fijacion y el tipo de Bioinstrumento.
 class Protesis_rodilla(Bioinstrumentos):
-
+    
+    #Esta función es el iniciador de la clase Protesis rodilla
     def __init__(self, medico, estado, tamaño, material, tipo_fijacion, fecha_revision, fecha_mantenimiento):
         super().__init__(medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento)
         self.__tipo_fijacion = tipo_fijacion
         self.__tipo_bioinstrumento = "protesis_rodilla"
     
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Protesis rodilla
     def getTipo_fijacion(self):
         return self.__tipo_fijacion
     def getTipo_bioinstrumento(self):
         return self.__tipo_bioinstrumento
     
+    #Estas funciones nos sirven para modificar los datos de la clase Protesis rodilla
     def setTipo_fijacion(self, tf):
         self.__tipo_fijacion = tf
 
