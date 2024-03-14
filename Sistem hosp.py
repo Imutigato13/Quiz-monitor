@@ -220,12 +220,15 @@ class Sistema_hospital:
         else:
             print(f"El paciente {paciente.getNombre()} no está registrado")
 
+
+#Función principal, donde el usuario puede navegar por el sistema hospitalario
 def main():
 
     sh = Sistema_hospital()
     print("Bienvenido al sistema hospitalario de gestion de bioinstrumentos".center(90))
     while True:
 
+        #Se muestra un menu al usuario para que elija su acción a realizar
         print("--Menu principal--".center(90))
         menu = validar_entero("""\r1.Registrar paciente
                                  \r2.Modificar registro de un paciente
@@ -233,6 +236,7 @@ def main():
                                  \r4.Finalizar programa
                                  \r:""")
         
+        #Este if nos abre la opcion de registro de pacientes donde se lo ingresa al sistema
         if menu == 1:
 
             print("--Registro de pacientes--".center(90))
@@ -242,16 +246,19 @@ def main():
             sh.registrarPaciente(paciente)
             print(f"El paciente {paciente.getNombre()} se registró con exito")
         
+        #Este elif nos abre la segunda opción que nos permite modificar el registro de un paciente
         elif menu == 2:
 
             nombre = validar_alfanumerico("Ingrese el nombre del paciente: ").lower()
             cedula = validar_entero("Ingrese el número de cedula del paciente: ")
             registro = sh.getRegistro()
 
+            #Este ciclo for barre el registro para verificar si el paciente que el usuario proporciona se encuentra registrado
             for paciente in registro.keys():
                 if paciente.getNombre() == nombre and paciente.getCedula() == cedula:
                     print(f"--¿Que desea modificar de {paciente.getNombre()}?--".center(90))
-
+                    
+                    #Menu de modificaciones para bioinstrumentos para que el usuario elija su acción a realizar
                     vbio = validar_entero("""\r1.Registrar bioinstrumento
                                              \r2.Retirar bioinstrumento
                                              \r3.Modificar bioinstrumento
@@ -489,7 +496,7 @@ def main():
                                         nueva_fecha_mantenimiento = datetime.datetime.strptime(input("Ingrese la nueva fecha de mantenimiento en formato DD/MM/YY: "), '%d/%m/%Y')
                                         bioinstrumento.setFecha_mantenimiento(nueva_fecha_mantenimiento)
                         break
-
+                    
                     elif vbio == 4:
                         print("--Registro completo de bioinstrumentos--".center(90))
                         for bioinstrumento in registro[paciente]:
