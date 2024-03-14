@@ -162,48 +162,58 @@ class Protesis_rodilla(Bioinstrumentos):
     def setTipo_fijacion(self, tf):
         self.__tipo_fijacion = tf
 
+#Es una clase en la que en un futuro se le agregan Bioinstrumentos
 class Paciente():
-
+    
+    #Esta función es el iniciador de la clase Pacientes
     def __init__(self, nombre, cedula):
         self.__nombre = nombre
         self.__cedula = cedula
 
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Paciente
     def getNombre(self):
         return self.__nombre
     def getCedula(self):
       return self.__cedula
 
+    #Estas funciones nos sirven para modificar los datos de la clase Paciente
     def setNombre(self, n):
       self.__nombre = n
     def setCedula(self, c):
       self.__cedula = c
 
+#Es la clase que crea el sistema donde se almacenan los pacientes y bioinstrumentos, ademas de agregar funciones para modificar los valores de este registro
 class Sistema_hospital:
 
+    #Esta función es el iniciador de la clase Sistema hospital
     def __init__(self):
         self.__registro = {}
     
+    #Función para obtener el diccionario del registro para pacientes y bioinstrumentos
     def getRegistro(self):
         return self.__registro
     
+    #Función que verifica si el paciente esta registrado o no en el registro
     def existenciaPaciente(self, paciente):
         if paciente in self.__registro:
             return True
         return False
     
-
+    #Función para registrar pacientes en el registro
     def registrarPaciente(self, paciente):
         if self.existenciaPaciente(paciente):
             print(f"El paciente {paciente.getNombre()} está registrado")
         else:
             self.__registro[paciente] = []
-
+            
+    #Función para registrar bioinstrumentos a un paciente
     def registrarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
             self.__registro[paciente].append(bioinstrumento)
         else:
             print(f"El paciente {paciente.getNombre()} no está registrado")
 
+    #Función para retirar un bioinstrumento de un paciente
     def retirarBioinstrumento(self, paciente, bioinstrumento):
         if self.existenciaPaciente(paciente):
             self.__registro[paciente].remove(bioinstrumento)
