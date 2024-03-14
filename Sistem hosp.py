@@ -361,7 +361,8 @@ def main():
                                 print("El bioinstrumento se retiró con exito")
                                 break
                         break
-                              
+                    
+                    #Este elif nos lleva a la sección de modificacióón de bioinstrumentos donde se pueden modificar mediante el uso del numero de registro los datos de Protesis de cadera, Marcapasos cardiaco, Stents corona, Implante dental y Protesis de rodilla
                     elif vbio == 3:
                         print("--Modificar bioinstrumento--")
                         n_registro = validar_entero("Ingrese el número de registro del bioinstrumento: ")
@@ -499,6 +500,7 @@ def main():
                                         bioinstrumento.setFecha_mantenimiento(nueva_fecha_mantenimiento)
                         break
                     
+                    #Este elif nos permite observar el registro completo de bioinstrumentos implantados en un paciente
                     elif vbio == 4:
                         print("--Registro completo de bioinstrumentos--".center(90))
                         for bioinstrumento in registro[paciente]:
@@ -562,7 +564,8 @@ def main():
                                          \rFecha del siguiente mantenimiento: {bioinstrumento.getFecha_mantenimiento()}
                                          \rFecha de implantacion del bioinstrumento: {bioinstrumento.getFecha_implante()}""")
                                 continue
-
+                    
+                    #Este elif nos permite salir del submenu de Bioinstrumentos
                     elif vbio == 5:
                         print("Volviendo al menu principal")
                         break
