@@ -1,8 +1,11 @@
 import datetime as datetime
 from validaciones import *
 import random
+
+#Clase padre de los bioisntrumentos la cual hereda las caracteristicas similares para cada uno de los mismos.
 class Bioinstrumentos:
 
+    #Esta funcion es el iniciador de la clase, define las caracteristicas del objeto cuando se llama la clase 
     def __init__(self, medico, estado, tamaño, material, fecha_revision, fecha_mantenimiento):
         self.__medico = medico
         self.__estado = estado
@@ -13,7 +16,7 @@ class Bioinstrumentos:
         self.__fecha_mantenimiento = fecha_mantenimiento
         self.__n_registro = random.randint(1,10000)
 
-    #Get's definidos 
+    #Estas funciones nos sirven para tomar y dar los datos de la clase Bioinstrumentos
     def getMedico(self):
         return self.__medico
     def getEstado(self):
@@ -31,7 +34,7 @@ class Bioinstrumentos:
     def getN_registro(self):
         return self.__n_registro
     
-    #Set's definidos
+    #Estas funciones nos sirven para modificar los datos de la clase Bioinstrumentos
     def setMedico(self, med):
         self.__medico = med
     def setEstado(self, est):
