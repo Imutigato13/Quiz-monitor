@@ -266,6 +266,7 @@ def main():
                                              \r5.Salir
                                              \r:""")
                     
+                    #Este if nos lleva a la sección de registro de bioinstrumentos donde se pueden registrar Protesis de cadera, Marcapasos cardiaco, Stents corona, Implante dental y Protesis de rodilla
                     if vbio == 1:
 
                         print("--Seleccione el bioinstrumento a registrar--".center(90))
@@ -290,7 +291,7 @@ def main():
                             sh.registrarBioinstrumento(paciente, protesis_cadera)
                             print(f"El bioinstrumento con número de registro {protesis_cadera.getN_registro()} se registró correctamente")
                             break
-
+                        
                         elif rbio == 2:
 
                             medico = validar_alfanumerico("Ingrese el médico que implant el bioinstrumento: ")
@@ -349,7 +350,8 @@ def main():
                             sh.registrarBioinstrumento(paciente,protesis_rodilla)
                             print(f"El bioinstrumento con número de registro {protesis_rodilla.getN_registro()} se registró correctamente")
                             break
-
+                    
+                    #Este elif nos lleva a la sección de eliminación de bioinstrumentos mediante el uso de el numero de registro
                     elif vbio == 2:
                         print("--Eliminar bioinstrumento--".center(90))
                         n_registro = validar_entero("Ingrese el número de registro del bioinstrumento: ")
