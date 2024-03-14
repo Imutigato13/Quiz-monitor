@@ -169,12 +169,6 @@ class Sistema_hospital:
             return True
         return False
     
-    def existenciaBioinstrumento(self, bioinstrumento):
-        if bioinstrumento in self.__registro:
-            print(f"El bioinstrumento {bioinstrumento} está registrado")
-            return True
-        print(f"El bioinstrumento {bioinstrumento} no está registrado")
-        return False
 
     def registrarPaciente(self, paciente):
         if self.existenciaPaciente(paciente):
