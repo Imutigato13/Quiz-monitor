@@ -572,6 +572,7 @@ def main():
                     else:
                         print("Elija una de las opciones indicadas")
 
+        #Este elif nos permite mediante el numero de registro del Bioinstrumento revisar su estado y fecha de mantenimiento sin entrar en el submenu de Bioinstrumentos
         elif menu == 3:
             print("--Revisión de estado de bioinstrumentos--".center(90))
             n_registro = validar_entero("Introduzca el número de registro del bioisntrumento: ")
@@ -581,11 +582,12 @@ def main():
                         print(f"""El bioisntrumento que consulta tiene el siguiente estado: {bioinstrumento.getEstado()}
                                 \rSe le tiene asignada la siguiente fecha de mantenimiento: {bioinstrumento.getFecha_mantenimiento()}""")
 
-
+        #Este elif nos permite salir del sistema y finalizar el programa.
         elif menu == 4:
 
             print("--Vuelva pronto--")
             break
 
+#If de llamado del main que verifica que este archivo contiene al propio main
 if __name__ == "__main__":
   main()
